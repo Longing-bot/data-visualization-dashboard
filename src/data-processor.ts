@@ -1,5 +1,5 @@
 import * as Papa from 'papaparse';
-import * as moment from 'moment';
+import moment from 'moment';
 import * as _ from 'lodash';
 
 export interface ProcessedData {
@@ -21,8 +21,8 @@ export class DataProcessor {
         const results = Papa.parse(csvData, {
           header: true,
           skipEmptyLines: true,
-          transformHeader: (header) => header.trim(),
-          transform: (value) => value.trim()
+          transformHeader: (header: string) => header.trim(),
+          transform: (value: string) => value.trim()
         });
 
         if (results.errors.length > 0) {
@@ -104,7 +104,7 @@ export class DataProcessor {
       if (values.length > 0) {
         statistics[col] = {
           mean: _.mean(values),
-          median: _.median(values),
+          median: values.length > 0 ? values.slice().sort((a, b) => a - b)[Math.floor(values.length / 2)] : 0,
           min: _.min(values),
           max: _.max(values),
           sum: _.sum(values),
@@ -178,7 +178,7 @@ export class DataProcessor {
 
   private static filterData(data: any[], filters: any): any[] {
     return data.filter(row => {
-      return Object.entries(filters).every(([field, condition]) => {
+      return Object.entries(filters).every(([field, condition]: [string, any]) => {
         const value = row[field];
         
         switch (condition.operator) {

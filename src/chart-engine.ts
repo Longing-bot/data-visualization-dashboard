@@ -202,7 +202,7 @@ export class ChartEngine {
           .append('path')
           .attr('class', 'arc')
           .attr('d', arc)
-          .attr('fill', (_, i) => color(i))
+          .attr('fill', (_, i) => color(String(i)))
           .attr('stroke', '#fff')
           .attr('stroke-width', 2)
           .on('mouseover', function(event, d) {

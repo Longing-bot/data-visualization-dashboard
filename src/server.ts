@@ -68,7 +68,7 @@ class DashboardServer {
       try {
         const chartData = await ChartEngine.createBarChart(req.body);
         res.json({ success: true, data: chartData });
-      } catch (error) {
+      } catch (error: any) {
         res.status(500).json({ success: false, error: error.message });
       }
     });
@@ -77,7 +77,7 @@ class DashboardServer {
       try {
         const chartData = await ChartEngine.createLineChart(req.body);
         res.json({ success: true, data: chartData });
-      } catch (error) {
+      } catch (error: any) {
         res.status(500).json({ success: false, error: error.message });
       }
     });
@@ -86,7 +86,7 @@ class DashboardServer {
       try {
         const chartData = await ChartEngine.createPieChart(req.body);
         res.json({ success: true, data: chartData });
-      } catch (error) {
+      } catch (error: any) {
         res.status(500).json({ success: false, error: error.message });
       }
     });
@@ -96,7 +96,7 @@ class DashboardServer {
       try {
         const processedData = await DataProcessor.processCSV(req.body.data);
         res.json({ success: true, data: processedData });
-      } catch (error) {
+      } catch (error: any) {
         res.status(500).json({ success: false, error: error.message });
       }
     });
@@ -105,7 +105,7 @@ class DashboardServer {
       try {
         const processedData = await DataProcessor.processJSON(req.body.data);
         res.json({ success: true, data: processedData });
-      } catch (error) {
+      } catch (error: any) {
         res.status(500).json({ success: false, error: error.message });
       }
     });
@@ -136,7 +136,7 @@ class DashboardServer {
         try {
           const chartData = await ChartEngine.generateChart(data.type, data.config);
           socket.emit('chart-response', { success: true, data: chartData });
-        } catch (error) {
+        } catch (error: any) {
           socket.emit('chart-response', { success: false, error: error.message });
         }
       });
@@ -145,7 +145,7 @@ class DashboardServer {
         try {
           const processedData = await DataProcessor.processRequest(data);
           socket.emit('data-response', { success: true, data: processedData });
-        } catch (error) {
+        } catch (error: any) {
           socket.emit('data-response', { success: false, error: error.message });
         }
       });
