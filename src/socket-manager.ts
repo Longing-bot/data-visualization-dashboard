@@ -1,5 +1,5 @@
 import { Server, Socket } from 'socket.io';
-import moment from 'moment';
+import moment = require('moment');
 
 export interface RealtimeConfig {
   interval: number;

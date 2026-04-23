@@ -1,5 +1,5 @@
 import * as Papa from 'papaparse';
-import moment from 'moment';
+import moment = require('moment');
 import * as _ from 'lodash';
 
 export interface ProcessedData {
@@ -137,7 +137,7 @@ export class DataProcessor {
 
   private static isDateColumn(values: any[]): boolean {
     const dateValues = values.slice(0, 100).filter(val => {
-      const date = moment(val, moment.ISO_8601, true) || moment(val, 'YYYY-MM-DD', true);
+      const date = moment(val, 'YYYY-MM-DDTHH:mm:ss.SSSZ', true) || moment(val, 'YYYY-MM-DD', true);
       return date.isValid();
     });
     return dateValues.length / values.length > 0.7; // At least 70% valid dates
